@@ -4,7 +4,7 @@ import sys
 
 pygame.init()
 screen = pygame.display.set_mode((1000, 900))
-# image=pygame.image.load ('Hades_cover_art.jpg')
+#image = pygame.image.load ('Hades_cover_art.jpg')
 done = False
 
 

@@ -9,6 +9,7 @@ win = pygame.display.set_mode((1000, 900))
 pygame.display.set_caption('Side Scroller')
 
 image = pygame.image.load('Dead_cells_cover_art.png')
+image1 = pygame.image.load('IMG_20231212_21409_407.png')
 done = False
 win.blit(image, (0, 0))
 

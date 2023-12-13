@@ -1,11 +1,17 @@
 import pygame
 import time
 import sys
+import os
+import math
 
 pygame.init()
-screen = pygame.display.set_mode((1000, 900))
-#image = pygame.image.load ('Hades_cover_art.jpg')
+win = pygame.display.set_mode((1000, 900))
+pygame.display.set_caption('Side Scroller')
+
+image = pygame.image.load('Dead_cells_cover_art.png')
 done = False
+win.blit(image, (0, 0))
+
 
 
 while not done:

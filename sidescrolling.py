@@ -1,16 +1,15 @@
 import pygame
 import time
 
-
 pygame.init()
 win = pygame.display.set_mode((1000, 900))
 pygame.display.set_caption('Side Scroller')
 
-image = pygame.image.load('Dead_cells_cover_art.png')
-image1 = pygame.image.load('IMG_20231212_214709_407.png')
+image = pygame.image.load('curling-stone-emoji-2048x1534-1ec3cb7w.png')
+#image1 = pygame.image.load('IMG_20231212_214709_407.png')
 done = False
 win.blit(image, (0, 0))
-win.blit(image1, (500, 0))
+#win.blit(image1, (500, 0))
 
 clock = pygame.time.Clock()
 
@@ -24,14 +23,19 @@ while not done:
     while run:
         clock.tick(speed)
         image -= 1.4
-        image1 -= 1.4
+        #image1 -= 1.4
 
         if image < image.get_width() * -1:
             image = image.get_width()
 
-        if image1 < image1.get_width() * -1:
-            image1 = image1.get_width()
+        #if image1 < image1.get_width() * -1:
+            #image1 = image1.get_width()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+
+
+# add this bg = pygame.image.load(os.path.join('images','bg.png')).convert()
+# bgX = 0
+# bgX2 = bg.get_width()

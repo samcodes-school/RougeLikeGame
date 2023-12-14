@@ -52,3 +52,5 @@ while running:  # The game loop
     player.update()
 
 pygame.quit()
+
+print ('hello')

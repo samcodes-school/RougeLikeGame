@@ -16,6 +16,7 @@ class Player(pygame.sprite.Sprite):  # Making our player class
         self.vel = 5
         self.direction = 1
         self.dashCooldown = 0
+        self.attackCooldown=0
         self.isJump = False
         self.jumpCount = 7
         self.startingPos = 1
@@ -71,7 +72,24 @@ class Player(pygame.sprite.Sprite):  # Making our player class
 
         if self.y > 200: # boundary
             self.y = 200
+    def attack(self, group):
+        left, middle, right=pygame.mouse.get_pressed()
+        if left and self.attackCooldown==0:
+            print("Left mouse")
+            for sprite in group: #Perhaps we could do a separate sprite for the sword and then rotate the sword when the mouse is clicked and if the sword sprite is touching the enemy sprite it deals damage
+                #if self.x+25>sprite.x or self.x-25<sprite.x: We are missing some way to detect if a sprite is a certain distance away
+                sprite.health-=10
+                print(sprite.health)
+                if sprite.health<=0:
+                    sprite.kill()
+            self.attackCooldown=250
+    def takeDamage(self, sprite):
+        if self.x==sprite.x and self.y==sprite.y:
+            self.health-=10
+            print(self.health)
 
     def update(self):  # Updates the cooldown
         if self.dashCooldown > 0:
             self.dashCooldown -= 10
+        if self.attackCooldown>0:
+            self.attackCooldown-=10

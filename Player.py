@@ -1,11 +1,9 @@
 import pygame
-# from Run import screen
-
 class Player(pygame.sprite.Sprite):  # Making our player class
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.surf = pygame.image.load("penguin.JPG")
+        self.surf = pygame.image.load("curling-stone-emoji-2048x1534-1ec3cb7w.png")
         self.surf = pygame.transform.scale(self.surf, (30, 30))
         self.surf.set_colorkey((0, 0, 0))
         self.rect = self.surf.get_rect()
@@ -46,11 +44,11 @@ class Player(pygame.sprite.Sprite):  # Making our player class
 
         # TO DO:
         # EVERYTIME A COLLISION HAPPENS, SWITCH STARTINGPOS TO THE Y-COORD READ DURING COLLISION
-        if self.y <= self.startingPos and self.isJump == False: # Gravity if not jumping
+        if self.y < self.startingPos and self.isJump == False: # Gravity if not jumping
             self.isGravity = True
             self.y += self.g
             if self.y == self.startingPos:
-                self.isGravity = False # Switch this around for collisions. Can't be = 200
+                self.isGravity = False
 
         if self.startingPos == 1 and self.isGravity is False:
             self.startingPos = self.y # For collision and jump detection

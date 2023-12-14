@@ -1,6 +1,7 @@
 import pygame
 from Player import Player
-from Enemy import Enemy
+import Enemy
+# ENEMY STUFF IS COMMENTED OUT
 
 ## SETUP ##
 pygame.init()
@@ -15,12 +16,14 @@ def drawShapes():
 
 def draw(): #Drawing the player (at the moment it is a rectangle)
     screen.blit(player.surf, (player.x, player.y))
-def draw(self):
-    screen.blit(self.surf, (self.x, self.y))
 
-enemy=Enemy()
-enemyList=pygame.sprite.group()
-enemyList.add(enemy)
+# def draw(self):
+#     screen.blit(self.surf, (self.x, self.y))
+
+# enemy=Enemy()
+# enemyList=pygame.sprite.group()
+# enemyList.add(enemy)
+
 ## RUNNING ##
 running = True
 while running:  # The game loop
@@ -32,15 +35,18 @@ while running:  # The game loop
     drawShapes()
     player.keys()  # Calling all of the things the player can do
     player.jump()
-    player.attack(enemyList)
-    for sprite in enemyList:
-        sprite.movement()
-    for sprite in enemyList:
-        player.takeDamage(sprite)
+
+    # player.attack(enemyList)
+    # for sprite in enemyList:
+    #     sprite.movement()
+    # for sprite in enemyList:
+    #     player.takeDamage(sprite)
+
     screen.fill((0, 0, 0))
-    player.draw()  # Drawing the player
-    for sprite in enemyList:
-        sprite.draw()
+    draw()  # Drawing the player
+
+    # for sprite in enemyList:
+    #     sprite.draw()
     pygame.display.update()  # And updating the screen
     clock.tick(60)
     player.update()

@@ -2,6 +2,11 @@ import pygame
 from pygame.locals import *
 import Collision
 
+## MOVE STUFF TO PLAYER.PY (under a function??)
+## USE SELF.G FOR GRAVITY
+## PLAYER COORDS FOR BOTTOM/SIDE
+
+
 pygame.init()
 
 window = pygame.display.set_mode((600,600))

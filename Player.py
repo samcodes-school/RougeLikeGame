@@ -3,7 +3,7 @@ class Player(pygame.sprite.Sprite):  # Making our player class
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.surf = pygame.image.load("curling-stone-emoji-2048x1534-1ec3cb7w.png")
+        self.surf = pygame.image.load("penguin.JPG")
         self.surf = pygame.transform.scale(self.surf, (30, 30))
         self.surf.set_colorkey((0, 0, 0))
         self.rect = self.surf.get_rect()

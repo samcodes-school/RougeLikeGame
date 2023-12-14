@@ -44,7 +44,7 @@ class Player(pygame.sprite.Sprite):  # Making our player class
 
         # TO DO:
         # EVERYTIME A COLLISION HAPPENS, SWITCH STARTINGPOS TO THE Y-COORD READ DURING COLLISION
-        if self.y < self.startingPos and self.isJump == False: # Gravity if not jumping
+        if self.y <= self.startingPos and self.isJump == False: # Gravity if not jumping. THROW IF-COLLIDING HERE TO FIX
             self.isGravity = True
             self.y += self.g
             if self.y == self.startingPos:

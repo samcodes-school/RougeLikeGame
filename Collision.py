@@ -3,18 +3,16 @@ import pygame
 #collidepoint instead of colliderect because colliderect wouldn't work for the walls
 #I am running two if statements because I expect that what will happen without them is that it will phase through the floor if the wrong corner is touching the wall
 
-def collideRight(charRect,groundRect):
+##Change all of these to character instead of charRect
+##Use x and y instead of sides
+##Take out second if statement
 
-    collision = (pygame.Rect.collidepoint(charRect , groundRect.right , charRect.bottom))
+def collideRight(character,groundRect):
+
+    collision = (pygame.Rect.collidepoint(groundRect , groundRect.left , character.x))
 
     if collision == True:
         return collision
-
-    else:
-        collision = (pygame.Rect.collidepoint(charRect , groundRect.right , charRect.top))
-
-        if collision == True:
-            return collision
 
 def collideLeft(charRect,groundRect):
 

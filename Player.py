@@ -1,4 +1,5 @@
 import pygame
+import Collision
 class Player(pygame.sprite.Sprite):  # Making our player class
 
     def __init__(self):
@@ -85,6 +86,9 @@ class Player(pygame.sprite.Sprite):  # Making our player class
         if self.x==sprite.x and self.y==sprite.y:
             self.health-=10
             print(self.health)
+
+    def collideFloor(self, floor):
+        Collision.collideTop
 
     def update(self):  # Updates the cooldown
         if self.dashCooldown > 0:

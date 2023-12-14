@@ -4,6 +4,11 @@ import pygame
 class Player(pygame.sprite.Sprite):  # Making our player class
 
     def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.surf = pygame.image.load("penguin.JPG")
+        self.surf = pygame.transform.scale(self.surf, (30, 30))
+        self.surf.set_colorkey((0, 0, 0))
+        self.rect = self.surf.get_rect()
         self.x = 200
         self.y = 200
         self.width = 20
@@ -66,10 +71,6 @@ class Player(pygame.sprite.Sprite):  # Making our player class
 
         if self.y > 200: # boundary
             self.y = 200
-
-    def draw(self):  # Drawing the player (at the moment it is a rectangle)
-        pygame.draw.rect(screen, (255, 255, 255),
-                         (self.x, self.y, self.width, self.height))
 
     def update(self):  # Updates the cooldown
         if self.dashCooldown > 0:

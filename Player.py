@@ -87,9 +87,6 @@ class Player(pygame.sprite.Sprite):  # Making our player class
             self.health-=10
             print(self.health)
 
-    def collideFloor(self, floor):
-        Collision.collideTop
-
     def update(self):  # Updates the cooldown
         if self.dashCooldown > 0:
             self.dashCooldown -= 10

@@ -4,6 +4,7 @@ import Collision
 
 ##I would have liked to test this, but I don't know how to integrate it into the main code.
 
+
 class Platform(Rect):
     def __init__(self,xPos,yPos,width):
         self.left = xPos
@@ -21,3 +22,6 @@ class Platform(Rect):
 
         if Collision.collideRight(character,self):
             character.left = self.left + self.width
+
+    def draw(self,screen):
+        pygame.draw.rect(screen,(240,48,64),self)

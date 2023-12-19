@@ -1,5 +1,7 @@
 import pygame
 from Player import Player
+import Collision
+import Platform
 import Enemy
 # ENEMY STUFF IS COMMENTED OUT
 
@@ -10,6 +12,10 @@ pygame.display.set_caption("Rougelike")
 
 player = Player()  # Instantiating the player
 clock = pygame.time.Clock()
+
+#A platform slightly above the player
+platform = Platform.Platform(200,100,80)
+
 
 def drawShapes():
     pygame.draw.rect(screen, (255, 255, 255), (0, 200, 700, 200))
@@ -33,7 +39,7 @@ while running:  # The game loop
             run = False
 
     drawShapes()
-    player.keys()  # Calling all of the things the player can do
+    player.keys()  # Calling all the things the player can do
     player.jump()
 
     # player.attack(enemyList)
@@ -44,6 +50,9 @@ while running:  # The game loop
 
     screen.fill((0, 0, 0))
     draw()  # Drawing the player
+    platform.draw(screen)
+
+
 
     # for sprite in enemyList:
     #     sprite.draw()

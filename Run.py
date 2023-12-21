@@ -14,7 +14,7 @@ player = Player()  # Instantiating the player
 clock = pygame.time.Clock()
 
 #A platform slightly above the player
-platform = Platform.Platform(200,100)
+platform = Platform.Platform(250,150)
 
 
 def drawShapes():
@@ -40,7 +40,7 @@ while running:  # The game loop
 
     drawShapes()
     player.keys()  # Calling all the things the player can do
-    player.jump()
+    player.jump(platform)
 
     # player.attack(enemyList)
     # for sprite in enemyList:
@@ -49,6 +49,7 @@ while running:  # The game loop
     #     player.takeDamage(sprite)
 
     screen.fill((0, 0, 0))
+    pygame.draw.rect(screen,(255,0,0),player.rect)
     draw()  # Drawing the player
     platform.draw(screen)
 

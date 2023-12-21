@@ -1,5 +1,5 @@
 import pygame
-import Collision
+import Collision as c
 class Player(pygame.sprite.Sprite):  # Making our player class
 
     def __init__(self):
@@ -40,37 +40,55 @@ class Player(pygame.sprite.Sprite):  # Making our player class
                 self.x += (100 * self.direction)
             self.dashCooldown = 250
 
-    def jump(self):  # Jumping
-        keys = pygame.key.get_pressed()
+##I'm sorry Jack, Alex's code just worked better
+    # def jump(self):  # Jumping
+        # keys = pygame.key.get_pressed()
 
-        # TO DO:
-        # EVERYTIME A COLLISION HAPPENS, SWITCH STARTINGPOS TO THE Y-COORD READ DURING COLLISION
-        if self.y <= self.startingPos and self.isJump == False: # Gravity if not jumping. THROW IF-COLLIDING HERE TO FIX
-            self.isGravity = True
-            self.y += self.g
-            if self.y == self.startingPos:
-                self.isGravity = False
+        # # TO DO:
+        # # EVERYTIME A COLLISION HAPPENS, SWITCH STARTINGPOS TO THE Y-COORD READ DURING COLLISION
+        # if self.y <= self.startingPos and self.isJump == False: # Gravity if not jumping. THROW IF-COLLIDING HERE TO FIX
+            # self.isGravity = True
+            # self.y += self.g
+            # if self.y == self.startingPos:
+                # self.isGravity = False
 
-        if self.startingPos == 1 and self.isGravity is False:
-            self.startingPos = self.y # For collision and jump detection
-            print(self.startingPos)
+        # if self.startingPos == 1 and self.isGravity is False:
+            # self.startingPos = self.y # For collision and jump detection
+            # print(self.startingPos)
 
-        if self.isJump == False and self.y == self.startingPos:
-            if keys[pygame.K_SPACE]:
-                self.isJump = True
+        # if self.isJump == False and self.y == self.startingPos:
+            # if keys[pygame.K_SPACE]:
+                # self.isJump = True
+        # else:
+            # if self.isJump == True:
+                # self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5  # Parabola
+                # self.jumpCount -= 1
+
+                # if self.y == self.startingPos:
+                    # self.jumpCount = 7
+                    # self.isJump = False
+                    # self.startingPos = 1
+
+
+        # if self.y > 200: # boundary
+            # self.y = 200
+    #This is Alex's code for jumping with Tommy's collision code, as well as some "improvements"
+    def jump(self,floor): #Jumping
+      keys=pygame.key.get_pressed()
+      startingPos = 200
+      if self.isJump==False and self.y==startingPos:
+        if keys[pygame.K_w]:
+              self.isJump=True
+      else:
+        if c.collideTop(self.rect,floor) and self.jumpCount <=0:
+            startingPos = floor.top
         else:
-            if self.isJump == True:
-                self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5  # Parabola
+            if self.jumpCount >= -7:
+                self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5 #Parabola
                 self.jumpCount -= 1
-
-                if self.y == self.startingPos:
-                    self.jumpCount = 7
-                    self.isJump = False
-                    self.startingPos = 1
-
-
-        if self.y > 200: # boundary
-            self.y = 200
+            else:
+                self.jumpCount = 7
+                self.isJump = False
     def attack(self, group):
         left, middle, right=pygame.mouse.get_pressed()
         if left and self.attackCooldown==0:
@@ -92,3 +110,6 @@ class Player(pygame.sprite.Sprite):  # Making our player class
             self.dashCooldown -= 10
         if self.attackCooldown>0:
             self.attackCooldown-=10
+        #These are a few of Alex's additions to update
+        self.rect.x=self.x
+        self.rect.y=self.y

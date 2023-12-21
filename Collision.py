@@ -24,14 +24,14 @@ def collideLeft(charRect,groundRect):
 
 def collideTop(charRect,groundRect):
 
-    collision = (pygame.Rect.collidepoint(charRect , charRect.left , groundRect.top))
+    collision = (pygame.Rect.collidepoint(groundRect , charRect.left , groundRect.top))
 
     if collision == True:
         return collision
 
 def collideBottom(charRect,groundRect):
 
-    collision = (pygame.Rect.collidepoint(charRect , charRect.left , groundRect.bottom))
+    collision = (pygame.Rect.collidepoint(groundRect , charRect.left , groundRect.bottom))
 
     if collision == True:
         return collision

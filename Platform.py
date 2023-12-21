@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-import Collision
+import Collision as c
 
 ##I would have liked to test this, but I don't know how to integrate it into the main code.
 
@@ -11,6 +11,14 @@ class Platform(Rect):
         self.top = yPos
         self.width = 80
         self.height = 20
+
+#This is code to turn the platform into a floor
+    def floorTime(self,character):
+      if c.collideTop(character.rect,self):
+        character.rect.bottom = self.top
+
+    def draw(self,screen):
+        pygame.draw.rect(screen,(240,48,64),self)
 
 
 #This is for anything larger than the platforms

@@ -14,7 +14,7 @@ player = Player()  # Instantiating the player
 clock = pygame.time.Clock()
 
 #A platform slightly above the player
-platform = Platform.Platform(200,100,80)
+platform = Platform.Platform(200,100)
 
 
 def drawShapes():

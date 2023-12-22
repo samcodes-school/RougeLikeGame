@@ -1,46 +1,47 @@
 import pygame
 import Collision as c
-class Player(pygame.sprite.Sprite):  # Making our player class
-
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.surf = pygame.image.load("penguin.JPG")
-        self.surf = pygame.transform.scale(self.surf, (30, 30))
-        self.surf.set_colorkey((0, 0, 0))
-        self.rect = self.surf.get_rect()
-        self.x = 200
-        self.y = 200
-        self.width = 20
-        self.height = 20
-        self.vel = 5
-        self.direction = 1
-        self.dashCooldown = 0
-        self.attackCooldown=0
-        self.isJump = False
-        self.jumpCount = 7
-        self.startingPos = 1
-        self.isGravity = False
-
-        self.g = 5
-
-    def keys(self):  # Making the controls
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_d] and self.x < 670:  # Adding boundaries EVENTUALLY NOT NEEDED
-            self.x += self.vel
-            self.direction = 1
-        elif keys[pygame.K_a] and self.x > 5:
-            self.x -= self.vel
-            self.direction = -1
-        if keys[pygame.K_s] and self.dashCooldown <= 0:  # Dashing and boundaries
-            if self.x < 100 and self.direction == -1:
-                self.x += (self.x * self.direction)
-            elif self.x > 570 and self.direction == 1:
-                self.x += ((670 - self.x) * self.direction)
-            else:
-                self.x += (100 * self.direction)
-            self.dashCooldown = 250
 
 ##I'm sorry Jack, Alex's code just worked better
+
+# class Player(pygame.sprite.Sprite):  # Making our player class
+
+    # def __init__(self):
+        # pygame.sprite.Sprite.__init__(self)
+        # self.surf = pygame.image.load("penguin.JPG")
+        # self.surf = pygame.transform.scale(self.surf, (30, 30))
+        # self.surf.set_colorkey((0, 0, 0))
+        # self.rect = self.surf.get_rect()
+        # self.x = 200
+        # self.y = 200
+        # self.width = 20
+        # self.height = 20
+        # self.vel = 5
+        # self.direction = 1
+        # self.dashCooldown = 0
+        # self.attackCooldown=0
+        # self.isJump = False
+        # self.jumpCount = 7
+        # self.startingPos = 1
+        # self.isGravity = False
+
+        # self.g = 5
+
+    # def keys(self):  # Making the controls
+       # keys = pygame.key.get_pressed()
+        # if keys[pygame.K_d] and self.x < 670:  # Adding boundaries EVENTUALLY NOT NEEDED
+            # self.x += self.vel
+            # self.direction = 1
+        # elif keys[pygame.K_a] and self.x > 5:
+            # self.x -= self.vel
+            # self.direction = -1
+        # if keys[pygame.K_s] and self.dashCooldown <= 0:  # Dashing and boundaries
+            # if self.x < 100 and self.direction == -1:
+                # self.x += (self.x * self.direction)
+            # elif self.x > 570 and self.direction == 1:
+                # self.x += ((670 - self.x) * self.direction)
+            # else:
+                # self.x += (100 * self.direction)
+            # self.dashCooldown = 250
     # def jump(self):  # Jumping
         # keys = pygame.key.get_pressed()
 
@@ -72,44 +73,27 @@ class Player(pygame.sprite.Sprite):  # Making our player class
 
         # if self.y > 200: # boundary
             # self.y = 200
-    #This is Alex's code for jumping with Tommy's collision code, as well as some "improvements"
-    def jump(self,floor): #Jumping
-      keys=pygame.key.get_pressed()
-      startingPos = 200
-      if self.isJump==False and self.y==startingPos:
-        if keys[pygame.K_w]:
-              self.isJump=True
-      else:
-        if c.collideTop(self.rect,floor) and self.jumpCount <=0:
-            startingPos = floor.top
-        else:
-            if self.jumpCount >= -7:
-                self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5 #Parabola
-                self.jumpCount -= 1
-            else:
-                self.jumpCount = 7
-                self.isJump = False
-    def attack(self, group):
-        left, middle, right=pygame.mouse.get_pressed()
-        if left and self.attackCooldown==0:
-            print("Left mouse")
-            for sprite in group: #Perhaps we could do a separate sprite for the sword and then rotate the sword when the mouse is clicked and if the sword sprite is touching the enemy sprite it deals damage
-                #if self.x+25>sprite.x or self.x-25<sprite.x: We are missing some way to detect if a sprite is a certain distance away
-                sprite.health-=10
-                print(sprite.health)
-                if sprite.health<=0:
-                    sprite.kill()
-            self.attackCooldown=250
-    def takeDamage(self, sprite):
-        if self.x==sprite.x and self.y==sprite.y:
-            self.health-=10
-            print(self.health)
+    # def attack(self, group):
+        # left, middle, right=pygame.mouse.get_pressed()
+        # if left and self.attackCooldown==0:
+            # print("Left mouse")
+            # for sprite in group: #Perhaps we could do a separate sprite for the sword and then rotate the sword when the mouse is clicked and if the sword sprite is touching the enemy sprite it deals damage
+                # if self.x+25>sprite.x or self.x-25<sprite.x: We are missing some way to detect if a sprite is a certain distance away
+                # sprite.health-=10
+                # print(sprite.health)
+                # if sprite.health<=0:
+                    # sprite.kill()
+            # self.attackCooldown=250
+    # def takeDamage(self, sprite):
+        # if self.x==sprite.x and self.y==sprite.y:
+            # self.health-=10
+            # print(self.health)
 
-    def update(self):  # Updates the cooldown
-        if self.dashCooldown > 0:
-            self.dashCooldown -= 10
-        if self.attackCooldown>0:
-            self.attackCooldown-=10
+    # def update(self):  # Updates the cooldown
+        # if self.dashCooldown > 0:
+            # self.dashCooldown -= 10
+        # if self.attackCooldown>0:
+            # self.attackCooldown-=10
         #These are a few of Alex's additions to update
-        self.rect.x=self.x
-        self.rect.y=self.y
+        # self.rect.x=self.x
+        # self.rect.y=self.y

@@ -1,27 +1,22 @@
 import math
-import pygame as py
+import pygame
 
-py.init()
+pygame.init()
 
-clock = py.time.Clock()
+clock = pygame.time.Clock()
 
 FrameHeight = 800
 FrameWidth = 1800
 
-# PYGAME FRAME WINDOW
-py.display.set_caption("Endless Scrolling in pygame")
-screen = py.display.set_mode((FrameWidth,
-                              FrameHeight))
+screen = pygame.display.set_mode((FrameWidth, FrameHeight))
 
-# IMAGE
-bg = py.image.load("Arrow.png").convert()
+bg = pygame.image.load("Arrow.png").convert()
+bg2 = pygame.image.load("Bat.png").convert()
 
 # DEFINING MAIN VARIABLES IN SCROLLING
 scroll = 0
 
-# CHANGE THE BELOW 1 TO UPPER NUMBER IF
-# YOU GET BUFFERING OF THE IMAGE
-# HERE 1 IS THE CONSTATNT FOR REMOVING BUFFERING
+# CHANGE THE BELOW 1 TO UPPER NUMBER IF YOU GET BUFFERING OF THE IMAGE
 tiles = math.ceil(FrameWidth / bg.get_width()) + 1
 
 # MAIN LOOP
@@ -33,9 +28,8 @@ while 1:
     # APPENDING THE IMAGE TO THE BACK
     # OF THE SAME IMAGE
     i = 0
-    while(i < tiles):
-        screen.blit(bg, (bg.get_width()*i
-                         + scroll, 0))
+    while i < tiles:
+        screen.blit(bg, (bg.get_width()*i + scroll, 0))
         i += 1
     # FRAME FOR SCROLLING
     scroll -= 6
@@ -43,9 +37,9 @@ while 1:
     # RESET THE SCROLL FRAME
     if abs(scroll) > bg.get_width():
         scroll = 0
-    # CLOSINF THE FRAME OF SCROLLING
-    for event in py.event.get():
-        if event.type == py.QUIT:
+    # CLOSING THE FRAME OF SCROLLING
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
             quit()
 
-    py.display.update()
+    pygame.display.update()

@@ -17,7 +17,7 @@ class Platform(Rect):
       if c.collideTop(character.rect,self):
         character.rect.bottom = self.top
 
-    def draw(self,screen):
+    def drawPlatform(self,screen):
         pygame.draw.rect(screen,(240,48,64),self)
 
 

@@ -1,6 +1,6 @@
 import pygame
 from Player import Player
-from Platform import Platform
+import Platforms
 
 import Enemy
 # ENEMY STUFF IS COMMENTED OUT
@@ -11,7 +11,6 @@ screen = pygame.display.set_mode((700, 350))
 pygame.display.set_caption("Rougelike")
 
 player = Player(200, 20)  # Instantiating the player
-platform = Platform(250, 100)
 clock = pygame.time.Clock()
 
 def draw(): #Drawing the player (at the moment it is a rectangle)
@@ -32,7 +31,6 @@ while running:  # The game loop
         if event.type == pygame.QUIT:
             run = False
 
-    # platform.drawPlatform()
     player.keys()  # Calling all of the things the player can do
     player.jump()
 
@@ -44,8 +42,9 @@ while running:  # The game loop
 
     screen.fill((0, 0, 0))
     draw()  # Drawing the player
+    Platforms.Platform.drawPlatforms(screen, screen)
 
-    # for sprite in enemyList:
+# for sprite in enemyList:
     #     sprite.draw()
     pygame.display.update()  # And updating the screen
     clock.tick(60)

@@ -6,19 +6,19 @@ import Collision as c
 
 #Use this to have a small platform
 class Platform(Rect):
-    def __init__(self,xPos,yPos,):
-        self.left = xPos
-        self.top = yPos
-        self.width = 80
-        self.height = 20
+    def __init__(self,xPos,yPos):
+        pygame.Rect.__init__(self, xPos, yPos, 80, 20)
+        self.x = xPos
+        self.y = yPos
+
 
 #This is code to turn the platform into a floor
-    def floorTime(self,character):
-      if c.collideTop(character.rect,self):
-        character.rect.bottom = self.top
+    def floorTime(self, character):
+      if c.collideTop(character.rect, self):
+        character.rect.bottom = self.x
 
-    def drawPlatform(self,screen):
-        pygame.draw.rect(screen,(240,48,64),self)
+    def drawPlatform(self, screen):
+        pygame.draw.rect(screen, (240, 48, 64), self)
 
 
 #This is for anything larger than the platforms

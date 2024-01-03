@@ -4,6 +4,11 @@ import Collision as c
 
 ##I would have liked to test this, but I don't know how to integrate it into the main code.
 
+FrameHeight = 800
+FrameWidth = 1800
+
+screen = pygame.display.set_mode((FrameWidth, FrameHeight))
+
 #Use this to have a small platform
 class Platform(Rect):
     def __init__(self,xPos,yPos):

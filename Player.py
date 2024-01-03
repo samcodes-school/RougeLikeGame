@@ -1,5 +1,6 @@
 import pygame
-from Platforms import Platform
+from Platforms import platforms
+from Platforms import platformList
 screen = pygame.display.set_mode((700, 350))
 
 class Player(pygame.sprite.Sprite):  # Making our player class
@@ -16,13 +17,13 @@ class Player(pygame.sprite.Sprite):  # Making our player class
         self.height = 20
         self.vel = 5
         self.direction = 1
+        self.isColliding = False
         self.dashCooldown = 0
         self.attackCooldown=0
         self.isJump = False
         self.jumpCount = 7
         self.startingPos = 1
         self.isGravity = False
-        self.isColliding = False
         self.health=100
         self.invincibility=0
         self.blocking=False
@@ -51,36 +52,54 @@ class Player(pygame.sprite.Sprite):  # Making our player class
     def jump(self):  # Jumping
         keys = pygame.key.get_pressed()
 
-        # TO DO:
-        # EVERYTIME A COLLISION HAPPENS, SWITCH STARTINGPOS TO THE Y-COORD READ DURING COLLISION
-        if self.isColliding == False and self.isJump == False: # Gravity if not jumping. THROW ISCOLLIDING HERE TO FIX
-            self.isGravity = True
-            self.y += self.g
-            if self.isColliding == True: ## Switch to isColliding
-                self.isGravity = False
+        if pygame.sprite.spritecollide(player, platforms, False):
+             self.isColliding = True
+             self.isGravity = False
 
-        # if self.startingPos == 1 and self.isGravity is False: ## startingPos is set to 1 at the start. Acts as a starter method.
+        else:
+             self.isColliding = False
+# PRINT STATEMENTS AREN'T WORKING HERE?? ALSO A PHASING BUG #
+        if self.isColliding:
+            for i in range(len(platformList)):
+                ## Checks for closest platform
+                if (platformList[i].rect.x <= self.x <= platformList[i].rect.x + platformList[i].rect.width and
+                        platformList[i].rect.y <= self.rect.y <= platformList[i].rect.y + platformList[i].rect.height):
+                    a = i # Uses location of closest platform in list
+                    if self.isColliding and self.rect.bottom == platformList[a].rect.y:
+                        self.y = platformList[a].rect.y - self.height # Vertical collision
+                    if self.isColliding and self.rect.bottom > platformList[a].rect.y and self.direction == 1:
+                        self.x = platformList[a].rect.x #Horizontal collisions
+                    if self.isColliding and self.rect.bottom > platformList[a].rect.y and self.direction == -1:
+                        self.x = platformList[a].rect.x + platformList[a].rect.width
+
+        if self.isColliding == False and self.isJump == False: # Gravity if not jumping.
+            self.isGravity = True
+
+        # if self.startingPos == 1 and self.isGravity is False:
         #     self.startingPos = self.y # For collision and jump detection
         #     print(self.startingPos)
-        #     print(self.isJump)
 
-        if self.isJump == False and self.isColliding == True: ## If on ground, and not jumping
+# JUMPING IS BUGGED. WILL FIX. #
+        if self.isGravity == True:
+            self.g = 5
+            self.y += self.g
+        elif self.isGravity == False:
+            self.g = 0
+
+        if self.isJump == False and self.isColliding: ## If on ground, and not jumping
             if keys[pygame.K_SPACE]:
                 self.isJump = True # Jump
-        else:
-            if self.isJump == True: # Jumping
-                self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5  # Parabola
-                self.jumpCount -= 1
 
-                if self.isColliding == True: ## Once landed, stop jumping.
-                    self.jumpCount = 7
-                    self.isJump = False
-                    self.startingPos = 1
+        if self.isJump == True: # Jumping
+            self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5  # Parabola
+            self.jumpCount -= 1
+            print(self.isJump)
 
 
-        # if self.y > 200: # boundary
-        #     self.y = 200
-
+            if self.isColliding == True and self.isJump == True: ## Once landed, stop jumping.
+                self.jumpCount = 7
+                self.isJump = False
+                # self.startingPos = 1
 # import pygame
 # class Player(pygame.sprite.Sprite): #Making our player class
 #     def __init__(self, x, y):
@@ -144,3 +163,5 @@ class Player(pygame.sprite.Sprite):  # Making our player class
         if self.health<=0:
             print("Game Over")
             pygame.quit()
+
+player = Player(20, 20)  # Instantiating the player

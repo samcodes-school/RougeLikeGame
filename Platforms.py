@@ -10,14 +10,19 @@ class Platform(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-    def drawPlatforms(self, screen): # Drawing
-        platforms = pygame.sprite.Group() # Grouping
-        platform = Platform(0, 300, 700, 50) # Instantiating a rough floor
-        platforms.add(platform) # Adding to group
 
-        platforms.update() # Drawing and updating the group (platforms)
-        platforms.draw(screen)
-        return platforms
+
+platforms = pygame.sprite.Group() # Grouping
+platform = Platform(0, 300, 200, 50) # Instantiating a rough floor
+platformTwo = Platform (400, 200, 50, 20)
+
+platformList = [platform, platformTwo]
+
+def drawPlatforms(screen): # Drawing
+    platforms.add(platformList) # Adding to group
+
+    platforms.update() # Drawing and updating the group (platforms)
+    platforms.draw(screen)
 
     #     platformLocations = []
     #     for platform in platforms:

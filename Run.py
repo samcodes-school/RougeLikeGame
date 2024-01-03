@@ -1,5 +1,5 @@
 import pygame
-from Player import Player
+from Player import player
 import Platforms
 
 import Enemy
@@ -10,7 +10,6 @@ pygame.init()
 screen = pygame.display.set_mode((700, 350))
 pygame.display.set_caption("Rougelike")
 
-player = Player(200, 20)  # Instantiating the player
 clock = pygame.time.Clock()
 
 def draw(): #Drawing the player (at the moment it is a rectangle)
@@ -42,7 +41,7 @@ while running:  # The game loop
 
     screen.fill((0, 0, 0))
     draw()  # Drawing the player
-    Platforms.Platform.drawPlatforms(screen, screen)
+    Platforms.drawPlatforms(screen)
 
 # for sprite in enemyList:
     #     sprite.draw()

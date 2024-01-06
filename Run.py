@@ -1,6 +1,7 @@
 import pygame
 from Player import player
 import Platforms
+from Platforms import platformList
 
 import Enemy
 # ENEMY STUFF IS COMMENTED OUT
@@ -29,9 +30,26 @@ while running:  # The game loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+    #
+    # for i in range(len(platformList)): # COLLISION CHECK. NOT MODULARIZED, JUST IN CASE.
+    #     if player.rect.colliderect(platformList[i]):
+    #         collisionCheck = True
+    #     else:
+    #         collisionCheck = False
+    #
+    #     while collisionCheck:
+    #         if (platformList[i].rect.x <= player.x <= platformList[i].rect.x + platformList[i].rect.width and
+    #                 platformList[i].rect.y <= player.rect.y <= platformList[i].rect.y + platformList[i].rect.height):
+    #                 player.isColliding = True
+    #                 player.platform = i
+    #         else:
+    #             player.isColliding = False
 
     player.keys()  # Calling all of the things the player can do
     player.jump()
+    player.verticalCollisions()
+    player.horizontalCollisions()
+    player.gravity()
 
     # player.attack(enemyList)
     # for sprite in enemyList:

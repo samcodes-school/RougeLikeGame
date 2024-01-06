@@ -1,22 +1,24 @@
 import pygame
 
 class Platform(pygame.sprite.Sprite):
-    def __init__(self, x, y, width, height): ## Making our platforms. Sprite for groups.
+    def __init__(self, x, y, width, height, colour, passthrough): ## Making our platforms. Sprite for groups.
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((width, height))
-        colour = (128, 0, 32)
+        self.colour = colour
         self.image.fill(colour)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.passthrough = passthrough
 
 
 
 platforms = pygame.sprite.Group() # Grouping
-platform = Platform(0, 300, 200, 50) # Instantiating a rough floor
-platformTwo = Platform (400, 200, 50, 20)
+platform = Platform(0, 300, 200, 50, (128, 0, 32), False) # Instantiating a rough floor
+platformTwo = Platform(400, 200, 50, 20, (128, 0, 32), False)
+platformThree = Platform(100, 250, 50, 20, (128, 128, 128), False)
 
-platformList = [platform, platformTwo]
+platformList = [platform, platformTwo, platformThree]
 
 def drawPlatforms(screen): # Drawing
     platforms.add(platformList) # Adding to group

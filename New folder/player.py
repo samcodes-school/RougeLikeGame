@@ -8,7 +8,7 @@ class Player(pygame.sprite.Sprite): #Making our player class
     pygame.sprite.Sprite.__init__(self) #Necessary for the class to be a sprite
 
     #Keeping track of the position of the player
-    self.x = x 
+    self.x = x
     self.y = y
 
     #Attributes needed for animation
@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite): #Making our player class
     #Attributes needed for collision
     self.surf = pygame.Surface((30, 30)) #Creating a surface
     self.rect = self.surf.get_rect() #Getting a rectangle from the surface, which can then be used to detect collision
-    
+
     #Stats for moving
     self.vel = 5 #The speed of the player
     self.direction=1 #The direction of the player
@@ -62,7 +62,7 @@ class Player(pygame.sprite.Sprite): #Making our player class
     self.maxStamina=100
     self.magicka=100
     self.maxMagicka=100
-    
+
     #Stats for the super
     self.super=0
     self.maxSuper=250
@@ -106,7 +106,7 @@ class Player(pygame.sprite.Sprite): #Making our player class
     self.potionPotency=50
     self.potionCount=0
     self.superCount=0
-    
+
     self.corrupted=False #Whether or not the player has died
 
     #Loading images for the active weapon and potions
@@ -124,7 +124,7 @@ class Player(pygame.sprite.Sprite): #Making our player class
     self.staminaPotionImage=pygame.transform.scale(self.staminaPotionImage, (60, 80))
     self.magickaPotionImage=pygame.image.load("magickaPotions.png").convert_alpha()
     self.magickaPotionImage=pygame.transform.scale(self.magickaPotionImage, (60, 80))
-  
+
   #Getting all of the images from the spritesheet 
   def getImages(self):
     for i in self.animation_steps:
@@ -134,16 +134,16 @@ class Player(pygame.sprite.Sprite): #Making our player class
         self.counter+=1 #Keeps moving through the spritesheet
       self.animation_list.append(tempList) #Adds the list to the master list, essentialy creating a 2D list, where each sublist is an action of the player
 
-  def updateAnimation(self): 
+  def updateAnimation(self):
     current_time=pygame.time.get_ticks() #Gets the time
     if current_time-self.last_update>=self.animation_cooldown: #Checks to see if enough time has gone by to update the animation
-      self.frame+=1 
+      self.frame+=1
       self.last_update=current_time #Resetting self.last_update
       if self.frame>=len(self.animation_list[self.action]): #Checking whether or not the frame is greater than the length of the list, which would cause an index out of range error
         self.frame=0 #If so, it sends it back to the start of the list
 
     #Makes the player stop animating if they are not moving
-    if self.action==0 and self.moving==False: 
+    if self.action==0 and self.moving==False:
       self.frame=0
     if self.action==1 and self.moving==False:
       self.frame=0
@@ -183,7 +183,7 @@ class Player(pygame.sprite.Sprite): #Making our player class
       if self.frame==7:
         self.corrupted=True
 
-  def death(self): 
+  def death(self):
     endGame=False
     if self.corrupted==True:
       endGame=True
@@ -218,7 +218,7 @@ class Player(pygame.sprite.Sprite): #Making our player class
       self.action=5 #Ranged attack left
       if self.frame>=len(self.animation_list[self.action]):
         self.frame=0
-    
+
     if self.blocking==True and self.melee==False and self.direction==1:
       self.action=6 #Block right
       self.frame=0 #There is only one frame for this action
@@ -263,7 +263,7 @@ class Player(pygame.sprite.Sprite): #Making our player class
         self.magicka-=self.dashCost #And using some of the player's magicka
 
   #Jumping
-  def jump(self, sprite): 
+  def jump(self, sprite):
     if self.health>0 and self.skillTree==False and self.shopping==False and self.powerAttack==0 and sprite.worldLevel>=2: #No jumping before level 2
       keys=pygame.key.get_pressed()
       if self.isJump==False and self.y==200: #The player can only jump if it is touching the ground, which prevents infinite jumping
@@ -271,11 +271,11 @@ class Player(pygame.sprite.Sprite): #Making our player class
           self.isJump=True
       else:
         if self.jumpCount >= -7:
-            self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5 #Simulates a parabola, where jumpCount are the x coordinates and self.y is the y coordinate, and the x intercepts are at -7 and 7 
-            self.jumpCount -= 1
-        else: 
-            self.jumpCount = 7 #At jumpCount=7 the player is back on the ground
-            self.isJump = False
+          self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5 #Simulates a parabola, where jumpCount are the x coordinates and self.y is the y coordinate, and the x intercepts are at -7 and 7
+          self.jumpCount -= 1
+        else:
+          self.jumpCount = 7 #At jumpCount=7 the player is back on the ground
+          self.isJump = False
 
   #Shopping
   def shop(self, sprite1, list):
@@ -293,25 +293,25 @@ class Player(pygame.sprite.Sprite): #Making our player class
           else:
             pass
           if self.shopping==True and self.buyCooldown==0:
-            if keys[pygame.K_1] and self.money>50 and self.shopDamageCount<5: #Keeps track of how many upgrades you have in a category and caps it at 5, and checks that you have enough money to buy the upgrade
+            if keys[pygame.K_1] and self.money>=50 and self.shopDamageCount<5: #Keeps track of how many upgrades you have in a category and caps it at 5, and checks that you have enough money to buy the upgrade
               self.damage+=2 #Upgrade sword damage
               self.buyCooldown=10 #Add a cooldown so it doesn't upgrade the sword multiple times at once
               self.money-=50 #Subtracts the amount of money necessary for the upgrade
               self.shopDamageCount+=1 #Increases the upgrade count by 1 for this category
-            if keys[pygame.K_2] and self.money>50 and self.shopRangedCount<5:
+            if keys[pygame.K_2] and self.money>=50 and self.shopRangedCount<5:
               self.rangedDamage+=1 #Upgrade ranged damage
               self.buyCooldown=10
               self.money-=50
               self.shopRangedCount+=1
-            if keys[pygame.K_3] and self.money>50 and self.armour<5:
+            if keys[pygame.K_3] and self.money>=50 and self.armour<5:
               self.armour+=1 #Upgrade armour
               self.buyCooldown=10
               self.money-=50
-            if keys[pygame.K_4] and self.money>25 and self.healthPotions<5:
+            if keys[pygame.K_4] and self.money>=25 and self.healthPotions<5:
               self.healthPotions+=1 #Add health potions
               self.buyCooldown=10
               self.money-=25
-            if keys[pygame.K_5] and self.money>25 and self.staminaPotions<5:
+            if keys[pygame.K_5] and self.money>=25 and self.staminaPotions<5:
               self.staminaPotions+=1 #Add stamina potions
               self.buyCooldown=10
               self.money-=25
@@ -425,12 +425,12 @@ class Player(pygame.sprite.Sprite): #Making our player class
       if left and self.attackCooldown<=0 and self.blocking==False and self.stamina>self.attackCost and sprite.worldLevel>=4: #No attacking before level 4
         if self.powerAttack<100:
           self.powerAttack+=10 #Pressing left mouse adds to the power attack bar above the player
-      elif not left and self.powerAttack>0: 
+      elif not left and self.powerAttack>0:
         if self.activeWeapon=="Sword":
           if self.powerAttack<100: #Checks to see whether or not the attack is a power attack or a regular attack
             self.melee=True
             attackRect=pygame.Rect(self.x+(20*self.direction), self.y, 20, 30) #Creates a rectangle for collision with other sprites
-            for sprite in group: 
+            for sprite in group:
               if attackRect.colliderect(sprite.rect): #If there is a collision
                 sprite.health-=self.damage #The sprites take damage based on the sword damage of the player
                 if self.super<self.maxSuper and (sprite.health+self.damage)>0:
@@ -441,7 +441,7 @@ class Player(pygame.sprite.Sprite): #Making our player class
           else:
             self.melee=True
             attackRect=pygame.Rect(self.x+(20*self.direction), self.y, 20, 30)
-            for sprite in group: 
+            for sprite in group:
               if attackRect.colliderect(sprite.rect):
                 sprite.health-=self.damage*2 #Does double damage since it is a power attack
                 if self.super<self.maxSuper and (sprite.health+(self.damage*2))>0:
@@ -479,7 +479,7 @@ class Player(pygame.sprite.Sprite): #Making our player class
         self.super=0 #And resets it
 
   #Drawing the player and all the relevant stats and prompts
-  def draw(self, sprite): 
+  def draw(self, sprite):
     font=pygame.font.SysFont("Comic Sans MS", 30) #Used for for the prompts
 
     if sprite.worldLevel==1:
@@ -560,7 +560,7 @@ class Player(pygame.sprite.Sprite): #Making our player class
       pygame.draw.rect(screen, ((0, 255, 0)), pygame.Rect(150, 300, 100*(self.stamina/self.maxStamina), 10))
       stamina=font.render("Stamina", False, (0, 255, 0))
       screen.blit(stamina, (158, 275))
-    
+
     if sprite.worldLevel>=3: #Magicka bar
       pygame.draw.rect(screen, ((0, 0, 128)), pygame.Rect(450, 300, 100, 10))
       pygame.draw.rect(screen, ((0, 0, 255)), pygame.Rect(450, 300, 100*(self.magicka/self.maxMagicka), 10))
@@ -587,7 +587,7 @@ class Player(pygame.sprite.Sprite): #Making our player class
       moneyWord=font.render("Coins:", False, (255, 255, 0))
       screen.blit(moneyAmount, (520, 345))
       screen.blit(moneyWord, (450, 345))
-  
+
     pygame.draw.rect(screen, ((255, 0, 0)), pygame.Rect(self.x, self.y-15, 30*(self.powerAttack/100), 10)) #The charge of the attack if there is any
 
     if sprite.worldLevel>=4: #Displaying the active weapon and potion icons
@@ -624,10 +624,10 @@ class Player(pygame.sprite.Sprite): #Making our player class
 
     if self.skillTree==True and self.health>0: #Displaying the skill menu
       screen.blit(self.skillImage, (0, 0))
-      screen.blit(self.TImage, (457, 418)) #Fixing a mistake I made when creating the skill menu - I put press E to close instead of press T to close 
-      skillPoints=str(self.skillPoints) 
+      screen.blit(self.TImage, (457, 418)) #Fixing a mistake I made when creating the skill menu - I put press E to close instead of press T to close
+      skillPoints=str(self.skillPoints)
       skillPointText1=font.render("You have", False, (255, 0, 0))
-      if self.skillPoints!=1: #It's important to have good grammar 
+      if self.skillPoints!=1: #It's important to have good grammar
         skillPointText2=font.render("unspent skill points.", False, (255, 0, 0))
       else:
         skillPointText2=font.render("unspent skill point.", False, (255, 0, 0))
@@ -635,35 +635,35 @@ class Player(pygame.sprite.Sprite): #Making our player class
       screen.blit(skillPointText1, (0, 420))
       screen.blit(skillPointNum, (95, 420))
       screen.blit(skillPointText2, (115, 420))
-      
+
       attackPoints=str(self.skillDamageCount) #Showing how many upgrades the player has put into each skill
       attackPointsNum=font.render(attackPoints, False, (255, 0, 0))
       screen.blit(attackPointsNum, (100, 150))
-      
+
       rangedPoints=str(self.skillRangedCount)
       rangedPointsNum=font.render(rangedPoints, False, (255, 0, 0))
       screen.blit(rangedPointsNum, (280, 150))
-      
+
       costPoints=str(self.attackCostCount)
       costPointsNum=font.render(costPoints, False, (255, 0, 0))
       screen.blit(costPointsNum, (465, 150))
-      
+
       cooldownPoints=str(self.attackCooldownCount)
       cooldownPointsNum=font.render(cooldownPoints, False, (255, 0, 0))
       screen.blit(cooldownPointsNum, (630, 150))
-      
+
       dashPoints=str(self.dashCount)
       dashPointsNum=font.render(dashPoints, False, (255, 0, 0))
       screen.blit(dashPointsNum, (100, 290))
-      
+
       movementPoints=str(self.movementCount)
       movementPointsNum=font.render(movementPoints, False, (255, 0, 0))
       screen.blit(movementPointsNum, (285, 290))
-      
+
       potionPoints=str(self.potionCount)
       potionPointsNum=font.render(potionPoints, False, (255, 0, 0))
       screen.blit(potionPointsNum, (470, 290))
-      
+
       superPoints=str(self.superCount)
       superPointsNum=font.render(superPoints, False, (255, 0, 0))
       screen.blit(superPointsNum, (640, 290))
@@ -679,11 +679,11 @@ class Player(pygame.sprite.Sprite): #Making our player class
       shopAttack=str(self.shopDamageCount)
       shopAttackNum=font.render(shopAttack, False, (255, 0, 0))
       screen.blit(shopAttackNum, (170, 150))
-      
+
       shopRanged=str(self.shopRangedCount)
       shopRangedNum=font.render(shopRanged, False, (255, 0, 0))
       screen.blit(shopRangedNum, (355, 150))
-      
+
       shopArmour=str(self.armour)
       shopArmourNum=font.render(shopArmour, False, (255, 0, 0))
       screen.blit(shopArmourNum, (540, 150))
@@ -691,15 +691,15 @@ class Player(pygame.sprite.Sprite): #Making our player class
       healthPotions=str(self.healthPotions)
       healthPotionsNum=font.render(healthPotions, False, (255, 0, 0))
       screen.blit(healthPotionsNum, (170, 290))
-      
+
       staminaPotions=str(self.staminaPotions)
       staminaPotionsNum=font.render(staminaPotions, False, (255, 0, 0))
       screen.blit(staminaPotionsNum, (355, 290))
-  
+
       magickaPotions=str(self.magickaPotions)
       magickaPotionsNum=font.render(magickaPotions, False, (255, 0, 0))
       screen.blit(magickaPotionsNum, (540, 290))
-      
+
   def update(self, list1, list2, list3, list4, list5, list6, list7, list8): #Updates the cooldowns for everything
     if self.health>0:
       if self.dashCooldown>0: #Dash cooldown
@@ -712,7 +712,7 @@ class Player(pygame.sprite.Sprite): #Making our player class
       self.rect.y=self.y
       if self.health<self.maxHealth/2: #Slow health regen up to 50% of max health
         self.health+=0.05
-      if self.stamina<self.maxStamina: #Stamina regeneration
+      if self.stamina<self.maxStamina and self.powerAttack==0: #Stamina regeneration
         self.stamina+=0.1
       if self.magicka<self.maxMagicka: #Magicka regeneration
         self.magicka+=0.1

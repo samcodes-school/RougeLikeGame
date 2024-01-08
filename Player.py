@@ -2,7 +2,7 @@ import pygame
 
 import Platforms
 from Platforms import platforms
-from Platforms import platformList
+from Platforms import levelList
 screen = pygame.display.set_mode((700, 350))
 
 class Player(pygame.sprite.Sprite):  # Making our player class

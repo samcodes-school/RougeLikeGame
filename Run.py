@@ -1,7 +1,7 @@
 import pygame
 from Player import player
 import Platforms
-from Platforms import platformList
+from Platforms import levelList
 
 import Enemy
 # ENEMY STUFF IS COMMENTED OUT

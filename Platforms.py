@@ -17,8 +17,9 @@ platforms = pygame.sprite.Group() # Grouping
 platform = Platform(0, 300, 200, 50, (128, 0, 32), False) # Instantiating a rough floor
 platformTwo = Platform(400, 200, 50, 20, (128, 0, 32), False)
 platformThree = Platform(100, 250, 50, 20, (128, 128, 128), False)
+platformFour = Platform(50, 250, 20, 100, (128, 128, 128), False)
 
-platformList = [platform, platformTwo, platformThree]
+platformList = [platform, platformTwo, platformThree, platformFour]
 
 def drawPlatforms(screen): # Drawing
     platforms.add(platformList) # Adding to group

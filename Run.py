@@ -27,25 +27,12 @@ def draw(): #Drawing the player (at the moment it is a rectangle)
 running = True
 while running:  # The game loop
 
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-    #
-    # for i in range(len(platformList)): # COLLISION CHECK. NOT MODULARIZED, JUST IN CASE.
-    #     if player.rect.colliderect(platformList[i]):
-    #         collisionCheck = True
-    #     else:
-    #         collisionCheck = False
-    #
-    #     while collisionCheck:
-    #         if (platformList[i].rect.x <= player.x <= platformList[i].rect.x + platformList[i].rect.width and
-    #                 platformList[i].rect.y <= player.rect.y <= platformList[i].rect.y + platformList[i].rect.height):
-    #                 player.isColliding = True
-    #                 player.platform = i
-    #         else:
-    #             player.isColliding = False
 
-    player.keys()  # Calling all of the things the player can do
+    player.keys()  # Calling all the things the player can do
     player.jump()
     player.verticalCollisions()
     player.horizontalCollisions()
@@ -57,6 +44,7 @@ while running:  # The game loop
     # for sprite in enemyList:
     #     player.takeDamage(sprite)
 
+    clock.tick(60)
     screen.fill((0, 0, 0))
     draw()  # Drawing the player
     Platforms.drawPlatforms(screen)
@@ -64,7 +52,6 @@ while running:  # The game loop
 # for sprite in enemyList:
     #     sprite.draw()
     pygame.display.update()  # And updating the screen
-    clock.tick(60)
     player.update()
 
 pygame.quit()

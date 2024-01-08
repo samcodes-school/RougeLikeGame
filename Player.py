@@ -32,7 +32,7 @@ class Player(pygame.sprite.Sprite):  # Making our player class
         self.activeWeapon="Sword"
         self.damage=10
 
-        self.g = 5
+        self.g = 7
         self.yDirection = 0
         self.canMoveLeft = True
         self.canMoveRight = True
@@ -58,10 +58,13 @@ class Player(pygame.sprite.Sprite):  # Making our player class
 
         for i in Platforms.platforms.sprites():
             if i.rect.colliderect(self.rect):
+                print("Woah! Colliding!")
                 if self.direction > 0:
                     self.rect.right = i.rect.left
+                    return
                 if self.direction < 0:
                     self.rect.left = i.rect.right
+                    return
 
     def verticalCollisions(self):
 
@@ -69,9 +72,15 @@ class Player(pygame.sprite.Sprite):  # Making our player class
             if i.rect.colliderect(self.rect):
                 if self.yDirection < 0:
                     self.rect.top = i.rect.bottom
+                    self.jumpCount = 0
+                    return
                 elif self.yDirection > 0:
                     self.rect.bottom = i.rect.top
                     self.isColliding = True
+                    self.jumpCount = 7
+                    print("Woah!! Collisions!")
+                    self.isGravity = True
+                    return
             else:
                 self.isColliding = False
 
@@ -88,11 +97,9 @@ class Player(pygame.sprite.Sprite):  # Making our player class
             self.isGravity = False
 
         if self.isGravity:
-            self.g = 5
             self.y += self.g
         elif self.isGravity is False:
-            self.g = 0
-
+            self.y = self.y
 
     def jump(self):  # Jumping
         keys = pygame.key.get_pressed()
@@ -109,23 +116,25 @@ class Player(pygame.sprite.Sprite):  # Making our player class
         if self.isJump is False and self.isColliding: ## If on ground, and not jumping
             if keys[pygame.K_SPACE]:
                 self.isJump = True # Jump
+                self.isGravity = False
 
 
         if self.y > 350: # BOUNDARY. SWIYCH WITH DEATH SCREEN.
             self.y = 1
 
-        if self.isJump: # Jumping
-            self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5  # Parabola
-            self.jumpCount -= 1
+        if keys[pygame.K_SPACE] and self.isColliding:
+            self.isJump = True
 
-            if self.isColliding and self.isJump: ## Once landed, stop jumping.
-                self.jumpCount = 7
+        elif self.isJump:
+            if self.jumpCount >= -7:
+                self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5 #Simulates a parabola, where jumpCount are the x coordinates and self.y is the y coordinate, and the x intercepts are at -7 and 7
+                self.jumpCount -= 1
+            else:
+                self.jumpCount = 7 #At jumpCount=7 the player is back on the ground
                 self.isJump = False
 
 
 
-
-                # self.startingPos = 1
 # import pygame
 # class Player(pygame.sprite.Sprite): #Making our player class
 #     def __init__(self, x, y):
@@ -184,10 +193,11 @@ class Player(pygame.sprite.Sprite):  # Making our player class
             self.attackCooldown-=10
         if self.invincibility>0:
             self.invincibility-=10
-        self.rect.x=self.x
-        self.rect.y=self.y
+        self.rect.x = self.x
+        self.rect.y = self.y
         if self.health<=0:
             print("Game Over")
             pygame.quit()
+
 
 player = Player(20, 20)  # Instantiating the player

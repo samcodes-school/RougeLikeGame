@@ -1,5 +1,5 @@
 import pygame
-from Player import player
+from Player1 import player
 import Platforms
 from Platforms import platformList
 

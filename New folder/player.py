@@ -1,3 +1,4 @@
+#Hello!
 import pygame
 import animation #The animation file is needed to animate the player
 screen=pygame.display.set_mode((660, 500)) #A screen is needed to blit things onto

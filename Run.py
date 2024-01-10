@@ -47,7 +47,7 @@ while running:  # The game loop
     clock.tick(60)
     screen.fill((0, 0, 0))
     draw()  # Drawing the player
-    Platforms.drawPlatforms(screen)
+    Platforms.drawPlatforms(screen,4)
 
 # for sprite in enemyList:
     #     sprite.draw()

@@ -1,11 +1,14 @@
 import pygame
 
+
 import Platforms
 from Platforms import platforms
 from Platforms import levelList
 screen = pygame.display.set_mode((700, 350))
 
+
 class Player(pygame.sprite.Sprite):  # Making our player class
+
 
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -32,10 +35,12 @@ class Player(pygame.sprite.Sprite):  # Making our player class
         self.activeWeapon="Sword"
         self.damage=10
 
+
         self.g = 7
         self.yDirection = 0
         self.canMoveLeft = True
         self.canMoveRight = True
+
 
     def keys(self): #Making the controls
         keys=pygame.key.get_pressed()
@@ -54,7 +59,9 @@ class Player(pygame.sprite.Sprite):  # Making our player class
                 self.x+=(100*self.direction)
             self.dashCooldown=250
 
+
     def horizontalCollisions(self):
+
 
         for i in Platforms.platforms.sprites():
             if i.rect.colliderect(self.rect):
@@ -66,7 +73,9 @@ class Player(pygame.sprite.Sprite):  # Making our player class
                     self.rect.left = i.rect.right
                     return
 
+
     def verticalCollisions(self):
+
 
         for i in Platforms.platforms.sprites():
             if i.rect.colliderect(self.rect):
@@ -84,25 +93,31 @@ class Player(pygame.sprite.Sprite):  # Making our player class
             else:
                 self.isColliding = False
 
+
     def gravity(self):
+
 
         if self.isGravity:
             self.yDirection = 1
         elif self.isJump:
             self.yDirection = -1
 
+
         if self.isColliding is False and self.isJump is False: # Gravity if not jumping.
             self.isGravity = True
         else:
             self.isGravity = False
+
 
         if self.isGravity:
             self.y += self.g
         elif self.isGravity is False:
             self.y = self.y
 
+
     def jump(self):  # Jumping
         keys = pygame.key.get_pressed()
+
 
         # if self.isColliding and self.y == platformList[self.platform].rect.top:
         #     self.y = platformList[self.platform].rect.y - self.height # Vertical collisions
@@ -113,17 +128,22 @@ class Player(pygame.sprite.Sprite):  # Making our player class
         # if self.isColliding and self.rect.bottom > platformList[self.platform].rect.y and self.direction == -1:
         #     self.x = platformList[self.platform].rect.x + platformList[self.platform].rect.width
 
+
         if self.isJump is False and self.isColliding: ## If on ground, and not jumping
             if keys[pygame.K_SPACE]:
                 self.isJump = True # Jump
                 self.isGravity = False
 
 
+
+
         if self.y > 350: # BOUNDARY. SWIYCH WITH DEATH SCREEN.
             self.y = 1
 
+
         if keys[pygame.K_SPACE] and self.isColliding:
             self.isJump = True
+
 
         elif self.isJump:
             if self.jumpCount >= -7:
@@ -135,22 +155,26 @@ class Player(pygame.sprite.Sprite):  # Making our player class
 
 
 
-# import pygame
-# class Player(pygame.sprite.Sprite): #Making our player class
-#     def __init__(self, x, y):
-#         pygame.sprite.Sprite.__init__(self)
-#         self.x = x
-#         self.y = y
-#         self.surf = pygame.image.load("penguin.JPG")
-#         self.surf = pygame.transform.scale(self.surf, (30, 30))
-#         self.surf.set_colorkey((0, 0, 0))
-#         self.rect = self.surf.get_rect()
-#         self.vel = 5
-#         self.direction=1
-#         self.dashCooldown=0
-#         self.attackCooldown=0
-#         self.isJump = False
-#         self.jumpCount = 7
+
+
+
+    # import pygame
+    # class Player(pygame.sprite.Sprite): #Making our player class
+    #     def __init__(self, x, y):
+    #         pygame.sprite.Sprite.__init__(self)
+    #         self.x = x
+    #         self.y = y
+    #         self.surf = pygame.image.load("penguin.JPG")
+    #         self.surf = pygame.transform.scale(self.surf, (30, 30))
+    #         self.surf.set_colorkey((0, 0, 0))
+    #         self.rect = self.surf.get_rect()
+    #         self.vel = 5
+    #         self.direction=1
+    #         self.dashCooldown=0
+    #         self.attackCooldown=0
+    #         self.isJump = False
+    #         self.jumpCount = 7
+
 
     def weapons(self):
         keys=pygame.key.get_pressed()
@@ -158,6 +182,7 @@ class Player(pygame.sprite.Sprite):  # Making our player class
             self.activeWeapon="Sword"
         if keys[pygame.K_2]:
             self.activeWeapon="Bow"
+
 
     def attack(self, group, ranged, list): #A bit finnicky - probably not the best but it works
         left, middle, right=pygame.mouse.get_pressed()
@@ -182,9 +207,11 @@ class Player(pygame.sprite.Sprite):  # Making our player class
         elif not right:
             self.blocking=False
 
+
     def draw(self): #Drawing the player (at the moment it is a rectangle)
         screen.blit(self.surf, self.rect)
         pygame.draw.rect(screen, ((255, 0, 0)), self.rect, 2)
+
 
     def update(self): #Updates the cooldown
         if self.dashCooldown>0:
@@ -198,6 +225,8 @@ class Player(pygame.sprite.Sprite):  # Making our player class
         if self.health<=0:
             print("Game Over")
             pygame.quit()
+
+
 
 
 player = Player(20, 20)  # Instantiating the player

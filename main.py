@@ -111,7 +111,7 @@ while gaming:
   ending=0 #Necessary for ensuring which ending is displayed (either the death screen or the game complete screen)
   
   player2=Player(10, 200) #Instantiating the player
-  playerGroup.add(player) #And adding it to a list for use later
+  playerGroup.add(player2) #And adding it to a list for use later
   
   nextLevel=door(620, 198) #Instantiating the door to the next level, which also creates the enemies
   

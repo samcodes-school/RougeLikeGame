@@ -1,6 +1,4 @@
 import pygame
-from Platforms import Platform
-from Player import Player
 
 # collidepoint instead of colliderect because colliderect wouldn't work for the walls
 # I am running two if statements because I expect that what will happen without them is that it will phase through the floor if the wrong corner is touching the wall

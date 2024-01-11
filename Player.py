@@ -40,6 +40,7 @@ class Player(pygame.sprite.Sprite):  # Making our player class
         self.yDirection = 0
         self.canMoveLeft = True
         self.canMoveRight = True
+        self.level = 0
 
 
     def keys(self): #Making the controls
@@ -63,28 +64,28 @@ class Player(pygame.sprite.Sprite):  # Making our player class
     def horizontalCollisions(self):
 
 
-        for i in Platforms.platforms.sprites():
-            if i.rect.colliderect(self.rect):
+        for i in range(len(levelList[self.level])):
+            if levelList[self.level][i].rect.colliderect(self.rect):
                 print("Woah! Colliding!")
                 if self.direction > 0:
-                    self.rect.right = i.rect.left
+                    self.rect.right = levelList[self.level][i].rect.left
                     return
                 if self.direction < 0:
-                    self.rect.left = i.rect.right
+                    self.rect.left = levelList[self.level][i].rect.right
                     return
 
 
     def verticalCollisions(self):
 
 
-        for i in Platforms.platforms.sprites():
-            if i.rect.colliderect(self.rect):
+        for i in range(len(levelList[self.level])):
+            if levelList[self.level][i].rect.colliderect(self.rect):
                 if self.yDirection < 0:
-                    self.rect.top = i.rect.bottom
+                    self.rect.top = levelList[self.level][i].rect.bottom
                     self.jumpCount = 0
                     return
                 elif self.yDirection > 0:
-                    self.rect.bottom = i.rect.top
+                    self.rect.bottom = levelList[self.level][i].rect.top
                     self.isColliding = True
                     self.jumpCount = 7
                     print("Woah!! Collisions!")

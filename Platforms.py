@@ -15,9 +15,9 @@ class Platform(pygame.sprite.Sprite):
 
 platforms = pygame.sprite.Group() # Grouping
 lvZeroPlatform = Platform(0, 300, 200, 50, (128, 0, 32), False) # Instantiating a rough floor
-lvZeroPlatformTwo = Platform(255, 275, 50, 10, (128, 0, 32), False)
-lvZeroPlatformThree = Platform(380, 250, 50, 10, (128, 0, 32), False)
-lvZeroPlatformFour = Platform(500, 225, 200, 125, (128, 0, 32), False)
+lvZeroPlatformTwo = Platform(255, 250, 50, 10, (128, 0, 32), False)
+lvZeroPlatformThree = Platform(380, 200, 50, 10, (128, 0, 32), False)
+lvZeroPlatformFour = Platform(500, 175, 200, 125, (128, 0, 32), False)
 
 lvZeroPlatformList = [lvZeroPlatform, lvZeroPlatformTwo, lvZeroPlatformThree, lvZeroPlatformFour] #Index 0 in levelList
 
@@ -62,10 +62,10 @@ levelList = [lvZeroPlatformList,lvOnePlatformList,lvEvilPlatformList, lvQuotaPla
 #That's your problem, I haven't done any coding since the collision that we aren't using and I won't start now
 
 def drawPlatforms(screen, level): # Drawing
-    platforms.add(levelList[level]) # Adding to group
+    platforms.add(levelList[level])
 
     platforms.update() # Drawing and updating the group (platforms)
-    platforms.draw(screen)
+    platforms.draw(screen,platforms)
 
     #     platformLocations = []
     #     for platform in platforms:

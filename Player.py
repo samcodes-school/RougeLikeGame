@@ -41,6 +41,7 @@ class Player(pygame.sprite.Sprite):  # Making our player class
         self.canMoveLeft = True
         self.canMoveRight = True
         self.level = 0
+        self.collTolerance = 10
 
 
     def keys(self): #Making the controls
@@ -69,10 +70,15 @@ class Player(pygame.sprite.Sprite):  # Making our player class
                 print("Woah! Colliding!")
                 if self.direction > 0:
                     self.rect.right = levelList[self.level][i].rect.left
+                    self.canMoveRight = False
                     return
                 if self.direction < 0:
                     self.rect.left = levelList[self.level][i].rect.right
+                    self.canMoveLeft = False
                     return
+            else:
+                self.canMoveRight = True
+                self.canMoveLeft = True
 
 
     def verticalCollisions(self):
@@ -87,7 +93,6 @@ class Player(pygame.sprite.Sprite):  # Making our player class
                 elif self.yDirection > 0:
                     self.rect.bottom = levelList[self.level][i].rect.top
                     self.isColliding = True
-                    self.jumpCount = 7
                     print("Woah!! Collisions!")
                     self.isGravity = True
                     return
@@ -150,7 +155,6 @@ class Player(pygame.sprite.Sprite):  # Making our player class
             if self.jumpCount >= -7:
                 self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5 #Simulates a parabola, where jumpCount are the x coordinates and self.y is the y coordinate, and the x intercepts are at -7 and 7
                 self.jumpCount -= 1
-            else:
                 self.jumpCount = 7 #At jumpCount=7 the player is back on the ground
                 self.isJump = False
 

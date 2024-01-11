@@ -17,7 +17,7 @@ platforms = pygame.sprite.Group() # Grouping
 lvZeroPlatform = Platform(0, 300, 200, 50, (128, 0, 32), False) # Instantiating a rough floor
 lvZeroPlatformTwo = Platform(255, 250, 50, 10, (128, 0, 32), False)
 lvZeroPlatformThree = Platform(380, 200, 50, 10, (128, 0, 32), False)
-lvZeroPlatformFour = Platform(500, 175, 200, 125, (128, 0, 32), False)
+lvZeroPlatformFour = Platform(500, 175, 200, 175, (128, 0, 32), False)
 
 lvZeroPlatformList = [lvZeroPlatform, lvZeroPlatformTwo, lvZeroPlatformThree, lvZeroPlatformFour] #Index 0 in levelList
 

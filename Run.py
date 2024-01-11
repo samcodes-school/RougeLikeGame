@@ -10,6 +10,7 @@ import Enemy
 pygame.init()
 screen = pygame.display.set_mode((700, 350))
 pygame.display.set_caption("Rougelike")
+bg_image = pygame.image.load("CityBackground")
 
 clock = pygame.time.Clock()
 
@@ -30,6 +31,9 @@ while running:  # The game loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+
+    screen.blit(bg_image, (0, 0))
+    pygame.display.update()
     #
     # for i in range(len(platformList)): # COLLISION CHECK. NOT MODULARIZED, JUST IN CASE.
     #     if player.rect.colliderect(platformList[i]):
@@ -57,7 +61,7 @@ while running:  # The game loop
     # for sprite in enemyList:
     #     player.takeDamage(sprite)
 
-    screen.fill((0, 0, 0))
+
     draw()  # Drawing the player
     Platforms.drawPlatforms(screen)
 

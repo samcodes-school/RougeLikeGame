@@ -1,3 +1,5 @@
+# An old testing site. Worked on by Tommy and Alex, before collision was passed onto Jack.
+
 #Sprite Collision
 #To do collision between sprites you have to update the self.rect values for x and y once the player has moved
 # self.rect.x=self.x

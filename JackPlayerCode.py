@@ -1,8 +1,9 @@
-import pygame
+# Programmer: Jack Woodbridge (and Alex Dell)
+# Completed: TBD
+# Instantiates our player class, fit with jumping, collision and movement abilities.
 
+import pygame
 import Platforms
-from Platforms import platforms
-from Platforms import platformList
 screen = pygame.display.set_mode((700, 350))
 
 class Player(pygame.sprite.Sprite):  # Making our player class
@@ -54,15 +55,15 @@ class Player(pygame.sprite.Sprite):  # Making our player class
                 self.x+=(100*self.direction)
             self.dashCooldown=250
 
-    def horizontalCollisions(self):
+    def horizontalCollisions(self): # Collisions! The bane of my existence! Vertical works... for the most part, but horizontal is still being a pain.
 
         for i in Platforms.platforms.sprites():
             if i.rect.colliderect(self.rect):
                 print("Woah! Colliding!")
-                if self.direction > 0:
+                if self.direction > 0: # If direction is > 0 (going right), then the right of the player will collide with the left of the object.
                     self.rect.right = i.rect.left
                     return
-                if self.direction < 0:
+                if self.direction < 0: # Vice versa
                     self.rect.left = i.rect.right
                     return
 
@@ -70,11 +71,11 @@ class Player(pygame.sprite.Sprite):  # Making our player class
 
         for i in Platforms.platforms.sprites():
             if i.rect.colliderect(self.rect):
-                if self.yDirection < 0:
+                if self.yDirection < 0: # If direction is < 0 (going up)
                     self.rect.top = i.rect.bottom
                     self.jumpCount = 0
                     return
-                elif self.yDirection > 0:
+                elif self.yDirection > 0: # Vice versa. Added a ton of stuff here in order to ensure touchdown.
                     self.rect.bottom = i.rect.top
                     self.isColliding = True
                     self.jumpCount = 7
@@ -84,9 +85,9 @@ class Player(pygame.sprite.Sprite):  # Making our player class
             else:
                 self.isColliding = False
 
-    def gravity(self):
+    def gravity(self): # Gravity! Pretty self-explanatory
 
-        if self.isGravity:
+        if self.isGravity: # Moving character
             self.yDirection = 1
         elif self.isJump:
             self.yDirection = -1
@@ -96,7 +97,7 @@ class Player(pygame.sprite.Sprite):  # Making our player class
         else:
             self.isGravity = False
 
-        if self.isGravity:
+        if self.isGravity: # Using gravity
             self.y += self.g
         elif self.isGravity is False:
             self.y = self.y
@@ -152,7 +153,7 @@ class Player(pygame.sprite.Sprite):  # Making our player class
     #         self.isJump = False
     #         self.jumpCount = 7
 
-    def weapons(self):
+    def weapons(self): # Alex code, from here on out.
         keys=pygame.key.get_pressed()
         if keys[pygame.K_1]:
             self.activeWeapon="Sword"
@@ -182,7 +183,7 @@ class Player(pygame.sprite.Sprite):  # Making our player class
         elif not right:
             self.blocking=False
 
-    def draw(self): #Drawing the player (at the moment it is a rectangle)
+    def draw(self): #Drawing the player
         screen.blit(self.surf, self.rect)
         pygame.draw.rect(screen, ((255, 0, 0)), self.rect, 2)
 

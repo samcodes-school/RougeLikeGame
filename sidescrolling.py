@@ -1,3 +1,7 @@
+#Programmer: Sammy Beamish
+# Completed: SCRAPPED
+# An old test version of sidescrolling. Could never figure it out, so it was dropped.
+
 import math
 import pygame
 

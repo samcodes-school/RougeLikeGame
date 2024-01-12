@@ -1,3 +1,7 @@
+# Programmers: Jack Woodbridge, Alex Dell
+# Completed: TBD
+# This is the main run file for our game. There us a separate one, titled "main", that instantiates Alex's beta code. This one deals with movement, level and platforming testing.
+# All of the commented code is Alex's old beta, that was moved over to the main. Ignore it.
 import pygame
 from Player import player
 import Platforms

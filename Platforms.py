@@ -1,3 +1,7 @@
+# Programmers: Jack Woodbridge and Tommy Salter
+# Completed: TBD
+# Instantiates platforms for the player to come in contact with.
+
 import pygame
 
 class Platform(pygame.sprite.Sprite):
@@ -67,6 +71,6 @@ def drawPlatforms(screen, level): # Drawing
     platforms.update() # Drawing and updating the group (platforms)
     platforms.draw(screen,platforms)
 
-    #     platformLocations = []
+    #     platformLocations = [] # Used to use a list. Migrated away from that.
     #     for platform in platforms:
     #         platformLocations.append(platform.rect.top)

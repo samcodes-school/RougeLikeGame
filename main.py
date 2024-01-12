@@ -1,10 +1,11 @@
 #Rouge - A Rougelike Game
+#Created by: Alex Dell
+#Due Date: January 8th, 2023
+#Rouge - A Rougelike Game lets the user attempt to save Rougeland from a corruption that has infected its inhabitants. Run, jump and dash through the 50 levels while slaying enemies using your sword and fireballs. Upgrade your character through a skill and shop system, but be careful - one death will send you back to the start. 
 
 #Bugs: 
 #While charging a power attack, the player can change which direction it is facing, but the attack will be targeted at the direction it was facing originally.
 #Charging a power attack and then attempting to block will stop the player from being able to move. The player can move again after attacking or blocking. 
-
-#Rouge - A Rougelike Game lets the user attempt to save Rougeland from a corruption that has infected its inhabitants. Run, jump and dash through the 50 levels while slaying enemies using your sword and fireballs. Upgrade your character through a skill and shop system, but be careful - one death will send you back to the start. 
 
 #Most of the comments are located in main.py, player.py, levels.py, boss.py and enemyArrow.py, as most of the other .py files use the same code as one of the files mentioned above (i.e. the enemies use pretty much the same code)
 
@@ -86,7 +87,7 @@ while gaming:
     clock.tick(40)
 
   #Getting all of the necessary classes for the main game 
-  from player import Player
+  from player2 import Player
   from arrow import Arrow
   from basicEnemy import basicEnemy
   from archer import archerEnemy
@@ -109,12 +110,12 @@ while gaming:
 
   ending=0 #Necessary for ensuring which ending is displayed (either the death screen or the game complete screen)
   
-  player=Player(10, 200) #Instantiating the player
+  player2=Player(10, 200) #Instantiating the player
   playerGroup.add(player) #And adding it to a list for use later
   
   nextLevel=door(620, 198) #Instantiating the door to the next level, which also creates the enemies
   
-  player.getImages() #For animation - this just gets all the images from the spritesheet for the player ("Player.png")
+  player2.getImages() #For animation - this just gets all the images from the spritesheet for the player ("Player.png")
   
   running = True
   while running: #The actual game loop
@@ -124,21 +125,21 @@ while gaming:
             running = False
 
     #Calling all of the player methods (movement, attacking, etc.)
-    player.keys() 
-    player.dash(nextLevel)
-    player.jump(nextLevel)
-    player.weapons(nextLevel)
-    player.attack(enemyList, Arrow, arrowList, nextLevel)
-    player.epicMove(enemyList)
-    player.skills(nextLevel)
-    player.shop(nextLevel, bossList)
-    player.animate()
-    if player.death():
+    player2.keys() 
+    player2.dash(nextLevel)
+    player2.jump(nextLevel)
+    player2.weapons(nextLevel)
+    player2.attack(enemyList, Arrow, arrowList, nextLevel)
+    player2.epicMove(enemyList)
+    player2.skills(nextLevel)
+    player2.shop(nextLevel, bossList)
+    player2.animate()
+    if player2.death():
       ending=-1 #Sets the ending to the death screen
       running=False #Breaks the loop upon player death
     
     for sprite in enemyList: #Enemy movement
-      sprite.movement(player)
+      sprite.movement(player2)
     for sprite in arrowList: #Player arrow (fireball) movement
       sprite.movement(enemyList)
     for sprite in enemyArrowList: #Enemy arrow (fireball) movement
@@ -154,7 +155,7 @@ while gaming:
       sprite.attack(enemyArrow, enemyArrowList, playerGroup)
 
     for sprite in hazardList: #Checking for collisions with hazards
-      sprite.collision(player)
+      sprite.collision(player2)
   
     for sprite in enemyList: #Enemy Animations
       sprite.animate()
@@ -174,23 +175,23 @@ while gaming:
     
     nextLevel.draw() #Displaying the door to the next level
 
-    player.draw(nextLevel) #Displaying the player - The player is drawn last so the skill and shop menus are drawn over anything else
+    player2.draw(nextLevel) #Displaying the player - The player is drawn last so the skill and shop menus are drawn over anything else
   
-    player.update(enemyList, arrowList, enemyArrowList, archerList, basicEnemyList, knightList, bossList, hazardList) #Updating the player (the lists are used on player death)
-    player.updateAnimation() #Updating the image of the player
+    player2.update(enemyList, arrowList, enemyArrowList, archerList, basicEnemyList, knightList, bossList, hazardList) #Updating the player (the lists are used on player death)
+    player2.updateAnimation() #Updating the image of the player
 
     #Update the image for each type of enemy (these have to be done separately since the boss class takes two parameters for its updateAnimation method)
     for sprite in basicEnemyList: 
-      sprite.updateAnimation(player)
+      sprite.updateAnimation(player2)
     for sprite in knightList:
-      sprite.updateAnimation(player)
+      sprite.updateAnimation(player2)
     for sprite in archerList:
-      sprite.updateAnimation(player)
+      sprite.updateAnimation(player2)
     for sprite in bossList:
-      sprite.updateAnimation(player, nextLevel)
+      sprite.updateAnimation(player2, nextLevel)
       
     #Generate the next level
-    nextLevel.newLevel(player, basicEnemyList, archerList, knightList, bossList, enemyList, arrowList, enemyArrowList, hazardList, basicEnemy, archerEnemy, Knight, Boss, smallHazard, largeHazard)
+    nextLevel.newLevel(player2, basicEnemyList, archerList, knightList, bossList, enemyList, arrowList, enemyArrowList, hazardList, basicEnemy, archerEnemy, Knight, Boss, smallHazard, largeHazard)
     
     #Update the level if necessary (i.e. during boss fights)
     nextLevel.update(bossList, basicEnemy, archerEnemy, Knight, basicEnemyList, archerList, knightList, enemyList)

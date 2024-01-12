@@ -1,7 +1,7 @@
 import pygame
 from Player import player
 import Platforms
-from Platforms import platformList
+from Platforms import levelList
 
 import Enemy
 # ENEMY STUFF IS COMMENTED OUT
@@ -47,7 +47,7 @@ while running:  # The game loop
     clock.tick(60)
     screen.fill((0, 0, 0))
     draw()  # Drawing the player
-    Platforms.drawPlatforms(screen)
+    Platforms.drawPlatforms(screen,0)
 
 # for sprite in enemyList:
     #     sprite.draw()

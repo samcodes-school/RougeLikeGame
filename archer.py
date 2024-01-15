@@ -96,11 +96,11 @@ class archerEnemy(pygame.sprite.Sprite): #Enemy archer
     screen.blit(self.animation_list[self.action][self.frame], (self.x-16, self.y-14))
     pygame.draw.rect(screen, ((128, 0, 128)), pygame.Rect(self.x, self.y-15, 30*(self.health/self.maxHealth), 10))
 
-  def movement(self, sprite): #The archer slowly moves away from the player, while still facing it, so fireballs go towards the player
+  def movement(self, sprite):  # The archer slowly moves away from the player, while still facing it, so fireballs go towards the player
     if self.health>0:
       if self.x>100 and self.x<550:
         self.x+=-1*self.direction
-      if self.x>=600 and self.direction==-1: #Setting up boundaries 
+      if self.x>=600 and self.direction==-1:  # Setting up boundaries
         self.x+=1*self.direction
       if self.x>=600 and self.direction==1:
         self.x-=1*self.direction

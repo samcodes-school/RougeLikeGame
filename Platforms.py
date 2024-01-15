@@ -20,11 +20,7 @@ platformThree = Platform(100, 250, 50, 20, (128, 128, 128), False)
 
 platformList = [platform, platformTwo, platformThree]
 
-def drawPlatforms(screen): # Drawing
-    platforms.add(platformList) # Adding to group
 
-    platforms.update() # Drawing and updating the group (platforms)
-    platforms.draw(screen)
 
     #     platformLocations = []
     #     for platform in platforms:

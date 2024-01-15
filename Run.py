@@ -10,12 +10,21 @@ import Enemy
 pygame.init()
 screen = pygame.display.set_mode((700, 350))
 pygame.display.set_caption("Rougelike")
-bg_image = pygame.image.load("CityBackground")
+bg_image = pygame.image.load("CityBackground.jpg")
 
 clock = pygame.time.Clock()
 
 def draw(): #Drawing the player (at the moment it is a rectangle)
     screen.blit(player.surf, (player.x, player.y))
+
+def drawPlatforms(screen): # Drawing
+    screen.blit(bg_image, (0, 0))
+    pygame.display.update()
+
+    Platforms.platforms.add(platformList) # Adding to group
+
+    Platforms.platforms.update() # Drawing and updating the group (platforms)
+    Platforms. platforms.draw(screen)
 
 # def draw(self):
 #     screen.blit(self.surf, (self.x, self.y))
@@ -32,8 +41,7 @@ while running:  # The game loop
         if event.type == pygame.QUIT:
             run = False
 
-    screen.blit(bg_image, (0, 0))
-    pygame.display.update()
+
     #
     # for i in range(len(platformList)): # COLLISION CHECK. NOT MODULARIZED, JUST IN CASE.
     #     if player.rect.colliderect(platformList[i]):
@@ -63,7 +71,7 @@ while running:  # The game loop
 
 
     draw()  # Drawing the player
-    Platforms.drawPlatforms(screen)
+    drawPlatforms(screen)
 
 # for sprite in enemyList:
     #     sprite.draw()

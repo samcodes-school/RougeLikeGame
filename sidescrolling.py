@@ -1,6 +1,7 @@
 import math
 import pygame
 
+###ooh, this one does absolutely nothing! lol###
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -17,7 +18,6 @@ keys = pygame.key.get_pressed()
 scroll = 0
 tiles = math.ceil(FrameWidth / bg.get_width()) + 1
 
-
 if keys[pygame.K_d]:
     Walk = 1
 
@@ -30,21 +30,20 @@ else:
         # THE SCROLLING IN PYGAME
         clock.tick(33)
 
-
-# APPENDING THE IMAGE TO THE BACK
-# OF THE SAME IMAGE
+        # APPENDING THE IMAGE TO THE BACK
+        # OF THE SAME IMAGE
         i = 0
         while i < tiles:
-            screen.blit(bg, (bg.get_width()*i + scroll, 0))
+            screen.blit(bg, (bg.get_width() * i + scroll, 0))
             i += 1
 
-# FRAME FOR SCROLLING
+            # FRAME FOR SCROLLING
             scroll -= 6
 
-# RESET THE SCROLL FRAME
+        # RESET THE SCROLL FRAME
         if abs(scroll) > bg.get_width():
             scroll = 0
-# CLOSING THE FRAME OF SCROLLING
+        # CLOSING THE FRAME OF SCROLLING
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()

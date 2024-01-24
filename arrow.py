@@ -4,7 +4,7 @@ screen=pygame.display.set_mode((660, 500))
 class Arrow(pygame.sprite.Sprite): 
   def __init__(self, x, y, direction, damage): 
     pygame.sprite.Sprite.__init__(self)
-    self.surf = pygame.Surface((20, 20))
+    self.surf = pygame.Surface((20, 20)) #im going to assume this is our hit box so if the player hits the surface of the arrow, they take damage
     self.image = pygame.image.load("Fireball.png")
     self.image=pygame.transform.scale(self.image, (100, 100))
     self.surf.set_colorkey((0, 0, 0))
@@ -24,7 +24,7 @@ class Arrow(pygame.sprite.Sprite):
     if self.x<0:
       self.kill()
     for sprite in group:
-      if pygame.sprite.collide_rect(self, sprite):
+      if pygame.sprite.collide_rect(self, sprite): #if the sprite collides with the player, this code runs to deal damage
         sprite.health-=self.damage
         self.kill()
     self.rect.x=self.x

@@ -119,7 +119,7 @@ class Player(pygame.sprite.Sprite):  # Making our player class
                 self.isGravity = False
 
 
-        if self.y > 350: # BOUNDARY. SWIYCH WITH DEATH SCREEN.
+        if self.y > 350: # BOUNDARY. SWITCH WITH DEATH SCREEN.
             self.y = 1
 
         if keys[pygame.K_SPACE] and self.isColliding:
